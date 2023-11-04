@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import Config from 'react-native-config';
-import { EndPoints } from '../enums/endPoints';
-import { PatientsData } from '../types/api';
+import { EndPoints } from '@/enums/endPoints';
+import { PatientsData } from '@/types/api';
 
 export const patientsApi = createApi({
   reducerPath: 'patientsApi',
