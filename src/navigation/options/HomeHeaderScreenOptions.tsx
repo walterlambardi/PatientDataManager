@@ -3,11 +3,13 @@ import {
   NativeStackNavigationOptions,
   NativeStackNavigationProp,
 } from '@react-navigation/native-stack';
-import { IconButton, MD3Colors } from 'react-native-paper';
-import { metrics } from '@/themes';
+import { IconButton } from 'react-native-paper';
+import { metrics } from '../../themes';
 import { RouteProp } from '@react-navigation/native';
 import { RootStackParams } from '..';
-import { Screens } from '@/enums/Screens';
+import { Screens } from '../../enums/Screens';
+import { StyleSheet } from 'react-native';
+import { isiOS } from '../../utils/platformUtils';
 
 type HomeHeaderScreenOptionsProps = (props: {
   route: RouteProp<RootStackParams, Screens.HOME>;
@@ -18,22 +20,28 @@ const HomeHeaderScreenOptions: HomeHeaderScreenOptionsProps = ({
   navigation,
 }) => {
   const openModalScreen = useCallback(
-    () => navigation.navigate(Screens.MODAL),
+    () => navigation.navigate(Screens.MODAL, {}),
     [navigation],
   );
 
   return {
     title: 'Patients',
-    headerTitleAlign: 'left',
     headerRight: () => (
       <IconButton
         icon="database-plus"
-        iconColor={MD3Colors.neutral10}
-        size={22 * metrics.scaleCoefficient}
+        size={18 * metrics.scaleCoefficient}
         onPress={openModalScreen}
+        mode="contained-tonal"
+        style={styles.btnStyle}
       />
     ),
   };
 };
+
+const styles = StyleSheet.create({
+  btnStyle: {
+    marginTop: isiOS ? 0 : 10 * metrics.scaleCoefficient,
+  },
+});
 
 export default HomeHeaderScreenOptions;

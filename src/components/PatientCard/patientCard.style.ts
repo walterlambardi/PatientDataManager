@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { metrics } from '@/themes';
+import { metrics } from '../../themes';
 import { MD3Colors } from 'react-native-paper';
 
 export default StyleSheet.create({
@@ -37,5 +37,13 @@ export default StyleSheet.create({
   section: {
     marginLeft: -34 * metrics.scaleCoefficient,
     marginBottom: 10 * metrics.scaleCoefficient,
+  },
+  sectionRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  editBtn: {
+    marginRight: 16 * metrics.scaleCoefficient,
   },
 });

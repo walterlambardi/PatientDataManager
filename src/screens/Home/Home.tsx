@@ -1,10 +1,12 @@
-import { View, FlatList } from 'react-native';
-import React from 'react';
+import { View } from 'react-native';
+import React, { useEffect } from 'react';
 import styles from './home.style';
-import { useGetPatientsQuery } from '@/api/services';
-import { Patient } from '@/types/api';
-import PatientCard from '@/components/PatientCard';
+import { Patient } from '../../types/api';
+import PatientCard from '../../components/PatientCard';
 import { ActivityIndicator } from 'react-native-paper';
+import { useAppDispatch, useAppSelector } from '../../store/index';
+import { fetchPatients } from '../../store/slices/patientSlice';
+import { FlashList } from '@shopify/flash-list';
 
 const keyExtractor = (item: Patient) => `${item.id}_${item.name}`;
 
@@ -13,7 +15,12 @@ const renderItem = ({ item }: { item: Patient }) => {
 };
 
 const Home = () => {
-  const { data, isLoading, error } = useGetPatientsQuery();
+  const dispatch = useAppDispatch();
+  const { patients, error, status } = useAppSelector(state => state.patients);
+
+  useEffect(() => {
+    dispatch(fetchPatients());
+  }, [dispatch]);
 
   if (error) {
     throw new Error('Failed to fetch patients data.');
@@ -21,12 +28,13 @@ const Home = () => {
 
   return (
     <View style={styles.container}>
-      {isLoading && <ActivityIndicator animating={true} />}
-      {data && (
-        <FlatList
-          data={data}
-          renderItem={renderItem}
+      {status === 'loading' && <ActivityIndicator animating={true} />}
+      {patients.length > 0 && (
+        <FlashList
+          data={patients}
+          estimatedItemSize={200}
           keyExtractor={keyExtractor}
+          renderItem={renderItem}
           showsVerticalScrollIndicator={false}
         />
       )}
