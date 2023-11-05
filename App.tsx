@@ -12,6 +12,7 @@ import {
   adaptNavigationTheme,
 } from 'react-native-paper';
 import FlashMessage from 'react-native-flash-message';
+import RNBootSplash from 'react-native-bootsplash';
 
 const { LightTheme } = adaptNavigationTheme({
   reactNavigationLight: DefaultTheme,
@@ -22,7 +23,9 @@ const App = () => (
     <ErrorBoundary FallbackComponent={Fallback}>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <NavigationContainer theme={LightTheme}>
+          <NavigationContainer
+            theme={LightTheme}
+            onReady={() => RNBootSplash.hide({ fade: true, duration: 1000 })}>
             <MainNavigation />
           </NavigationContainer>
         </PersistGate>

@@ -6,7 +6,7 @@ export default StyleSheet.create({
   cardContainer: {
     alignContent: 'center',
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: MD3Colors.neutral100,
+    borderBottomColor: MD3Colors.secondary80,
   },
   avatar: {
     marginStart: 16 * metrics.scaleCoefficient,

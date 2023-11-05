@@ -14,6 +14,7 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		7699B88040F8A987B510C191 /* libPods-PatientDataManager-PatientDataManagerTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-PatientDataManager-PatientDataManagerTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		9716AC942AF73A24003BE3F5 /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9716AC932AF73A24003BE3F5 /* BootSplash.storyboard */; };
 		97EE802B2AF5A5300006AE48 /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97EE80182AF5A5300006AE48 /* Fontisto.ttf */; };
 		97EE802C2AF5A5300006AE48 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97EE80192AF5A5300006AE48 /* Octicons.ttf */; };
 		97EE802D2AF5A5300006AE48 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97EE801A2AF5A5300006AE48 /* Feather.ttf */; };
@@ -62,6 +63,7 @@
 		5DCACB8F33CDC322A6C60F78 /* libPods-PatientDataManager.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PatientDataManager.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = PatientDataManager/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-PatientDataManager-PatientDataManagerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PatientDataManager-PatientDataManagerTests.release.xcconfig"; path = "Target Support Files/Pods-PatientDataManager-PatientDataManagerTests/Pods-PatientDataManager-PatientDataManagerTests.release.xcconfig"; sourceTree = "<group>"; };
+		9716AC932AF73A24003BE3F5 /* BootSplash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = BootSplash.storyboard; path = PatientDataManager/BootSplash.storyboard; sourceTree = "<group>"; };
 		97EE80182AF5A5300006AE48 /* Fontisto.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Fontisto.ttf; sourceTree = "<group>"; };
 		97EE80192AF5A5300006AE48 /* Octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Octicons.ttf; sourceTree = "<group>"; };
 		97EE801A2AF5A5300006AE48 /* Feather.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Feather.ttf; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 			children = (
 				97EE80172AF5A5300006AE48 /* Fonts */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
+				9716AC932AF73A24003BE3F5 /* BootSplash.storyboard */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
@@ -309,6 +312,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				97EE80362AF5A5300006AE48 /* FontAwesome5_Regular.ttf in Resources */,
+				9716AC942AF73A24003BE3F5 /* BootSplash.storyboard in Resources */,
 				97EE802B2AF5A5300006AE48 /* Fontisto.ttf in Resources */,
 				97EE80302AF5A5300006AE48 /* FontAwesome5_Brands.ttf in Resources */,
 				97EE80342AF5A5300006AE48 /* Ionicons.ttf in Resources */,
