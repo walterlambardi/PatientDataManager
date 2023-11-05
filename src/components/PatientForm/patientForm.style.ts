@@ -21,11 +21,11 @@ export default StyleSheet.create({
   },
   outlineStyle: {
     borderColor: MD3Colors.neutralVariant80,
-    borderWidth: 1 * metrics.scaleCoefficient,
+    borderWidth: StyleSheet.hairlineWidth,
   },
   outlineErrorStyle: {
     borderColor: MD3Colors.error70,
-    borderWidth: 1 * metrics.scaleCoefficient,
+    borderWidth: StyleSheet.hairlineWidth,
   },
   textAreaInput: {
     backgroundColor: MD3Colors.primary100,

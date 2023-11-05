@@ -171,7 +171,7 @@ const PatientForm: React.FC<PatientFormProps> = ({ patient }) => {
               outlineStyle={
                 !errors.avatar ? styles.outlineStyle : styles.outlineErrorStyle
               }
-              onSubmitEditing={() => descriptionRef.current?.focus()}
+              onSubmitEditing={() => websiteRef.current?.focus()}
             />
             <HelperText
               type="error"

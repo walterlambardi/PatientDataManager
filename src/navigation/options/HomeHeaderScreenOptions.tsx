@@ -3,7 +3,7 @@ import {
   NativeStackNavigationOptions,
   NativeStackNavigationProp,
 } from '@react-navigation/native-stack';
-import { IconButton } from 'react-native-paper';
+import { IconButton, MD3Colors } from 'react-native-paper';
 import { metrics } from '../../themes';
 import { RouteProp } from '@react-navigation/native';
 import { RootStackParams } from '..';
@@ -26,13 +26,19 @@ const HomeHeaderScreenOptions: HomeHeaderScreenOptionsProps = ({
 
   return {
     title: 'Patients',
+    headerStyle: {
+      backgroundColor: MD3Colors.error50,
+    },
+    headerTintColor: MD3Colors.primary100,
     headerRight: () => (
       <IconButton
         icon="database-plus"
         size={18 * metrics.scaleCoefficient}
         onPress={openModalScreen}
-        mode="contained-tonal"
+        mode="contained"
         style={styles.btnStyle}
+        iconColor={MD3Colors.primary100}
+        containerColor={MD3Colors.error30}
       />
     ),
   };
@@ -40,7 +46,7 @@ const HomeHeaderScreenOptions: HomeHeaderScreenOptionsProps = ({
 
 const styles = StyleSheet.create({
   btnStyle: {
-    marginTop: isiOS ? 0 : 10 * metrics.scaleCoefficient,
+    marginTop: isiOS ? 0 : 5 * metrics.scaleCoefficient,
   },
 });
 

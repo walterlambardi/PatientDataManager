@@ -1,9 +1,9 @@
-import { View } from 'react-native';
+import { StatusBar, View } from 'react-native';
 import React, { useEffect } from 'react';
 import styles from './home.style';
 import { Patient } from '../../types/api';
 import PatientCard from '../../components/PatientCard';
-import { ActivityIndicator } from 'react-native-paper';
+import { ActivityIndicator, MD3Colors } from 'react-native-paper';
 import { useAppDispatch, useAppSelector } from '../../store/index';
 import { fetchPatients } from '../../store/slices/patientSlice';
 import { FlashList } from '@shopify/flash-list';
@@ -28,6 +28,7 @@ const Home = () => {
 
   return (
     <View style={styles.container}>
+      <StatusBar backgroundColor={MD3Colors.error50} barStyle="light-content" />
       {status === 'loading' && <ActivityIndicator animating={true} />}
       {patients.length > 0 && (
         <FlashList
