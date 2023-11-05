@@ -3,7 +3,7 @@ import { setupListeners } from '@reduxjs/toolkit/query';
 import { persistStore, persistReducer } from 'redux-persist';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
-import { patientsApi } from '../api/services';
+import patientSlice from './slices/patientSlice';
 
 const persistConfig = {
   key: 'root',
@@ -12,7 +12,7 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
-  patientsApi: patientsApi.reducer,
+  patients: patientSlice,
 });
 
 const reduxDebugger = require('redux-flipper').default();
@@ -25,7 +25,7 @@ const store = configureStore({
     getDefaultMiddleware({
       immutableCheck: false,
       serializableCheck: false,
-    }).concat([patientsApi.middleware, reduxDebugger]),
+    }).concat([reduxDebugger]),
 });
 
 setupListeners(store.dispatch);
