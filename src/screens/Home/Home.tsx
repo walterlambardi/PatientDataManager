@@ -1,12 +1,11 @@
 import { StatusBar, View } from 'react-native';
-import React, { useEffect } from 'react';
+import React from 'react';
 import styles from './home.style';
 import { Patient } from '../../types/api';
 import PatientCard from '../../components/PatientCard';
 import { ActivityIndicator, MD3Colors } from 'react-native-paper';
-import { useAppDispatch, useAppSelector } from '../../store/index';
-import { fetchPatients } from '../../store/slices/patientSlice';
 import { FlashList } from '@shopify/flash-list';
+import { usePatients } from '../../hooks/usePatients';
 
 const keyExtractor = (item: Patient) => `${item.id}_${item.name}`;
 
@@ -15,12 +14,7 @@ const renderItem = ({ item }: { item: Patient }) => {
 };
 
 const Home = () => {
-  const dispatch = useAppDispatch();
-  const { patients, error, status } = useAppSelector(state => state.patients);
-
-  useEffect(() => {
-    dispatch(fetchPatients());
-  }, [dispatch]);
+  const { patients, error, status } = usePatients();
 
   if (error) {
     throw new Error('Failed to fetch patients data.');
@@ -29,7 +23,9 @@ const Home = () => {
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor={MD3Colors.error50} barStyle="light-content" />
-      {status === 'loading' && <ActivityIndicator animating={true} />}
+      {status === 'loading' && (
+        <ActivityIndicator animating={true} size={'large'} />
+      )}
       {patients.length > 0 && (
         <FlashList
           data={patients}
