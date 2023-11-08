@@ -8,6 +8,7 @@ import { FlashList } from '@shopify/flash-list';
 import { usePatients } from '../../hooks/usePatients';
 
 const keyExtractor = (item: Patient) => `${item.id}_${item.name}`;
+const ESTIMATED_ITEM_SIZE = 200;
 
 const renderItem = ({ item }: { item: Patient }) => {
   return <PatientCard item={item} />;
@@ -24,12 +25,16 @@ const Home = () => {
     <View style={styles.container}>
       <StatusBar backgroundColor={MD3Colors.error50} barStyle="light-content" />
       {status === 'loading' && (
-        <ActivityIndicator animating={true} size={'large'} />
+        <ActivityIndicator
+          animating={true}
+          size={'large'}
+          color={MD3Colors.error50}
+        />
       )}
       {patients.length > 0 && (
         <FlashList
           data={patients}
-          estimatedItemSize={200}
+          estimatedItemSize={ESTIMATED_ITEM_SIZE}
           keyExtractor={keyExtractor}
           renderItem={renderItem}
           showsVerticalScrollIndicator={false}

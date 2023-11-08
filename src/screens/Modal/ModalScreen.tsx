@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TouchableWithoutFeedback, StatusBar } from 'react-native';
+import { View, StatusBar } from 'react-native';
 import { Screens } from '../../enums/Screens';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParams } from '../../navigation';
@@ -17,9 +17,7 @@ const ModalScreen: React.FC<ModalScreenProps> = ({ route }) => {
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor={MD3Colors.error20} barStyle="light-content" />
-      <TouchableWithoutFeedback onPress={e => e.stopPropagation()}>
-        <PatientForm patient={patient} />
-      </TouchableWithoutFeedback>
+      <PatientForm patient={patient} />
     </View>
   );
 };

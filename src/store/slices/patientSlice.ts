@@ -12,7 +12,7 @@ interface InitialState {
 
 export const resetUpdateStatus = createAction('patients/resetUpdateStatus');
 
-export const fetchPatients = createAsyncThunk<PatientsData, void>(
+export const fetchPatients = createAsyncThunk(
   'patients/fetchPatients',
   async () => {
     try {
@@ -27,33 +27,34 @@ export const fetchPatients = createAsyncThunk<PatientsData, void>(
 
 export const updatePatient = createAsyncThunk<PatientsData, Partial<Patient>>(
   'patients/updatePatient',
-  async (updatedFields, { getState }) => {
+  async (updatedPatientFields, { getState }) => {
     const state = getState() as { patients: InitialState };
 
-    const newPatients = state.patients.patients;
+    const newPatients = [...state.patients.patients];
 
-    const updatedPatients = newPatients.map(patient => {
-      if (patient.id === updatedFields.id) {
-        return { ...patient, ...updatedFields };
-      } else {
-        return patient;
-      }
-    });
-
-    return updatedPatients;
+    const patientIdx = newPatients.findIndex(
+      p => p.id === updatedPatientFields.id,
+    );
+    if (patientIdx !== -1) {
+      newPatients[patientIdx] = {
+        ...newPatients[patientIdx],
+        ...updatedPatientFields,
+      };
+    }
+    return newPatients;
   },
 );
 
 export const addPatient = createAsyncThunk<PatientsData, Partial<Patient>>(
   'patients/addPatient',
-  async (patientData, { getState }) => {
+  async (patientFields, { getState }) => {
     const state = getState() as { patients: InitialState };
     const updatedPatients = [...state.patients.patients];
 
     const newPatient = {
       id: Date.now().toString(),
       createdAt: new Date().toISOString(),
-      ...patientData,
+      ...patientFields,
     } as Patient;
 
     updatedPatients.push(newPatient);

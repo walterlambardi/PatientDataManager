@@ -1,21 +1,19 @@
-import React, { useRef } from 'react';
+import React, { useCallback, useRef } from 'react';
 import {
   Button,
   List,
-  TextInput,
   MD3Colors,
   Card,
   Text,
-  HelperText,
   ActivityIndicator,
   Divider,
 } from 'react-native-paper';
 import styles from './patientForm.style';
 import { Patient } from '../../types/api';
-import { Controller } from 'react-hook-form';
 import { TextInput as RNTextInput } from 'react-native';
 import usePatientForm from './usePatientForm';
 import { useNavigation } from '@react-navigation/native';
+import ControlledTextInput from '../ControlledTextInput';
 
 type PatientFormProps = {
   patient: Patient | undefined;
@@ -39,167 +37,78 @@ const PatientForm: React.FC<PatientFormProps> = ({ patient }) => {
   const nameRef = useRef<RNTextInput>(null);
   const websiteRef = useRef<RNTextInput>(null);
 
-  return (
-    <Card style={styles.cardWrapper}>
-      {updateStatus === 'loading' && <ActivityIndicator animating={true} />}
-      {patient?.name && (
+  const renderHeader = useCallback(() => {
+    if (updateStatus === 'loading') {
+      return <ActivityIndicator animating={true} color={MD3Colors.error50} />;
+    }
+    if (patient?.name) {
+      return (
         <List.Item
-          title={patient?.name}
+          title={patient.name}
           // eslint-disable-next-line react/no-unstable-nested-components
           left={() => (
             <List.Image
-              source={{ uri: patient?.avatar }}
+              source={{ uri: patient.avatar }}
               style={styles.avatar}
             />
           )}
           style={styles.headerItem}
         />
-      )}
-      {!patient?.name && <Text variant="headlineSmall">New Patient</Text>}
+      );
+    }
+    return <Text variant="headlineSmall">New Patient</Text>;
+  }, [patient, updateStatus]);
+
+  return (
+    <Card style={styles.cardWrapper}>
+      {renderHeader()}
 
       <Divider style={styles.divider} />
 
-      <Controller
-        name="name"
+      <ControlledTextInput
         control={control}
-        rules={{
-          required: true,
-        }}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <>
-            <TextInput
-              ref={nameRef}
-              mode="outlined"
-              numberOfLines={1}
-              onBlur={onBlur}
-              onChangeText={onChange}
-              placeholder="Patient name"
-              style={styles.textInput}
-              value={value}
-              label="Name"
-              error={!!errors.name}
-              disabled={isSubmitting}
-              outlineStyle={
-                !errors.name ? styles.outlineStyle : styles.outlineErrorStyle
-              }
-              onSubmitEditing={() => avatarRef.current?.focus()}
-            />
-            <HelperText
-              type="error"
-              visible={!!errors.name}
-              style={styles.helperText}>
-              Name is required!
-            </HelperText>
-          </>
-        )}
+        errors={errors.name}
+        fieldName={'name'}
+        inputRef={nameRef}
+        isSubmitting={isSubmitting}
+        label="Patient name"
+        onSubmitEditing={() => avatarRef?.current?.focus()}
+        placeholder="Patient name"
       />
 
-      <Controller
-        name="avatar"
+      <ControlledTextInput
         control={control}
-        rules={{
-          required: true,
-        }}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <>
-            <TextInput
-              ref={avatarRef}
-              mode="outlined"
-              numberOfLines={1}
-              onBlur={onBlur}
-              onChangeText={onChange}
-              placeholder="Avatar url"
-              style={styles.textInput}
-              value={value}
-              label="Avatar url"
-              error={!!errors.avatar}
-              disabled={isSubmitting}
-              outlineStyle={
-                !errors.avatar ? styles.outlineStyle : styles.outlineErrorStyle
-              }
-              onSubmitEditing={() => websiteRef.current?.focus()}
-            />
-            <HelperText
-              type="error"
-              visible={!!errors.avatar}
-              style={styles.helperText}>
-              Avatar is invalid!
-            </HelperText>
-          </>
-        )}
+        errors={errors.avatar}
+        fieldName={'avatar'}
+        inputRef={avatarRef}
+        isSubmitting={isSubmitting}
+        label="Avatar url"
+        onSubmitEditing={() => websiteRef?.current?.focus()}
+        placeholder="Avatar url"
       />
 
-      <Controller
-        name="website"
+      <ControlledTextInput
         control={control}
-        rules={{
-          required: true,
-        }}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <>
-            <TextInput
-              ref={websiteRef}
-              mode="outlined"
-              numberOfLines={1}
-              onBlur={onBlur}
-              onChangeText={onChange}
-              placeholder="Website"
-              style={styles.textInput}
-              value={value}
-              label="Website"
-              error={!!errors.website}
-              disabled={isSubmitting}
-              outlineStyle={
-                !errors.website ? styles.outlineStyle : styles.outlineErrorStyle
-              }
-              onSubmitEditing={() => descriptionRef.current?.focus()}
-            />
-            <HelperText
-              type="error"
-              visible={!!errors.website}
-              style={styles.helperText}>
-              Website is invalid!
-            </HelperText>
-          </>
-        )}
+        errors={errors.website}
+        fieldName={'website'}
+        inputRef={websiteRef}
+        isSubmitting={isSubmitting}
+        label="Website url"
+        onSubmitEditing={() => descriptionRef?.current?.focus()}
+        placeholder="Website url"
       />
 
-      <Controller
-        name="description"
+      <ControlledTextInput
         control={control}
-        rules={{
-          required: true,
-        }}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <>
-            <TextInput
-              ref={descriptionRef}
-              label="Description"
-              mode="outlined"
-              multiline={true}
-              numberOfLines={10}
-              onBlur={onBlur}
-              onChangeText={onChange}
-              placeholder="Patient description"
-              style={styles.textAreaInput}
-              value={value}
-              error={!!errors.description}
-              disabled={isSubmitting}
-              outlineStyle={
-                !errors.description
-                  ? styles.outlineStyle
-                  : styles.outlineErrorStyle
-              }
-              onSubmitEditing={handleSubmit(onSubmit)}
-            />
-            <HelperText
-              type="error"
-              visible={!!errors.description}
-              style={styles.helperText}>
-              Description is required!
-            </HelperText>
-          </>
-        )}
+        errors={errors.description}
+        fieldName={'description'}
+        inputRef={descriptionRef}
+        isSubmitting={isSubmitting}
+        isTextAreaInput
+        label="Description"
+        numberOfLines={10}
+        onSubmitEditing={handleSubmit(onSubmit)}
+        placeholder="Description"
       />
 
       <Card.Actions style={styles.rowBtnContainer}>
